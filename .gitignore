@@ -1,0 +1,12 @@
+# Credenciales y variables de entorno
+credenciales.json
+*.json.key
+.env
+.env.*
+
+# Dependencias de Composer
+vendor/
+
+# Adminer (herramienta de base de datos, no debe subirse)
+adminer*.php
+
