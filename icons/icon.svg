@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Fondo circular verde -->
+  <circle cx="256" cy="256" r="256" fill="#04AA6D"/>
+  <!-- Burbuja de chat principal -->
+  <rect x="96" y="140" width="320" height="200" rx="30" ry="30" fill="#ffffff"/>
+  <!-- Cola de la burbuja -->
+  <polygon points="130,340 100,390 175,340" fill="#ffffff"/>
+  <!-- Puntos de "escribiendo" -->
+  <circle cx="176" cy="240" r="22" fill="#04AA6D"/>
+  <circle cx="256" cy="240" r="22" fill="#04AA6D"/>
+  <circle cx="336" cy="240" r="22" fill="#04AA6D"/>
+</svg>

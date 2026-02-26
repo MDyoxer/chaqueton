@@ -1,0 +1,9 @@
+# Credenciales sensibles - NUNCA subir
+credenciales.json
+
+# Dependencias de Composer (se reinstalan con composer install)
+vendor/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
