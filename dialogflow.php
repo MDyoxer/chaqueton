@@ -11,7 +11,7 @@ session_start();
 $userInput = $_POST['mensaje'] ?? '';
 
 // Cargar credenciales
-putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/pruebachat.json');
+putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/credenciales.json');
 
 // Tu ID de proyecto Dialogflow
 $projectId = 'utconnect-lniw'; // <-- reemplazar
