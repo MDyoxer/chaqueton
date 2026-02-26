@@ -17,7 +17,7 @@ if (empty($userInput)) {
 }
 
 // Cargar credenciales
-putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/clave.json');
+putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/credenciales.json');
 
 // Tu ID de proyecto Dialogflow
 $projectId = 'utconnect-lniw';
