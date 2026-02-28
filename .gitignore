@@ -1,6 +1,12 @@
 # Credenciales sensibles - NUNCA subir
 credenciales.json
 calendar-credentials.json
+adminer-5.4.1-en.php
+
+# Variables de entorno locales
+.env
+.env.local
+.env.production
 
 # Dependencias de Composer (se reinstalan con composer install)
 vendor/

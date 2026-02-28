@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/load_env.php';
 require_once __DIR__ . '/vendor/autoload.php';
 
 /**
@@ -21,9 +22,12 @@ function obtenerEventosEscolares(int $maxEventos = 5): string
 
         $service = new Google\Service\Calendar($client);
 
-        // ID del calendario escolar (puedes cambiarlo por el ID real del calendario UTC)
-        // Lo encuentras en: Google Calendar > Configuración del calendario > ID del calendario
-        $calendarId = getenv('CALENDAR_ID') ?: 'tjamesjoseph6@gmail.com';
+        // ID del calendario escolar — definir la variable de entorno CALENDAR_ID
+        // Se obtiene en: Google Calendar > Configuración del calendario > ID del calendario
+        $calendarId = getenv('CALENDAR_ID');
+        if (empty($calendarId)) {
+            return 'El calendario escolar no está configurado. Contacta al administrador.';
+        }
 
         $ahora   = date('c'); // Fecha/hora actual en formato ISO 8601
         $params  = [
@@ -87,7 +91,10 @@ function obtenerEventosPorFecha(string $fecha): string
         $client->addScope(Google\Service\Calendar::CALENDAR_READONLY);
 
         $service   = new Google\Service\Calendar($client);
-        $calendarId = getenv('CALENDAR_ID') ?: 'tjamesjoseph6@gmail.com';
+        $calendarId = getenv('CALENDAR_ID');
+        if (empty($calendarId)) {
+            return 'El calendario escolar no está configurado. Contacta al administrador.';
+        }
 
         $inicio = $fecha . 'T00:00:00Z';
         $fin    = $fecha . 'T23:59:59Z';
