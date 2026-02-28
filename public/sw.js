@@ -103,8 +103,8 @@ self.addEventListener('push', (event) => {
   const title = data.title || 'UTC Chatbot';
   const options = {
     body: data.body || 'Tienes un nuevo mensaje.',
-    icon: '/dialogflow/icons/icon-192.png',
-    badge: '/dialogflow/icons/icon-96.png',
+    icon: '/icons/icon-192.png',
+    badge: '/icons/icon-96.png',
     vibrate: [200, 100, 200],
     data: { url: '/index.php' }
   };

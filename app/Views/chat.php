@@ -10,7 +10,7 @@
     <!-- ── PWA Manifest ── -->
     <link rel="manifest" href="manifest.json">
 
-    <!-- ── Theme color (barra del navegador en Android) ── -->
+    <!-- ── Theme color ── -->
     <meta name="theme-color" content="#04AA6D">
     <meta name="msapplication-navbutton-color" content="#04AA6D">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -36,82 +36,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Sidebar 
-    <div class="sidebar-trigger"></div>
-    <div class="sidebar">
-      <a class="active" href="#home" title="Inicio">
-        <i class="fa fa-home"></i>
-        <span>Home</span>
-      </a>
-      <a href="#news" title="Noticias">
-        <i class="fa fa-newspaper"></i>
-        <span>News</span>
-      </a>
-      <a href="#contact" title="Contáctanos">
-        <i class="fa fa-phone"></i>
-        <span>Contact</span>
-      </a>
-      <a href="#about" title="Acerca de">
-        <i class="fa fa-info-circle"></i>
-        <span>About</span>
-      </a>
-    </div>
-    <div class="sidebar-icon">☰</div>
--->
     <div class="content">
         <div class="content">
-  <div class="main-layout">
-    <!-- Sección izquierda: Información del asistente -->
-    <aside class="assistant-info">
-      <img src="utc.jpg" alt="Logo Universidad Tecnológica de Coahuila" class="utc-logo">
-      <h2>Asistente Virtual UTC</h2>
-      <p>
-        Bienvenido al asistente virtual de la Universidad Tecnológica de Coahuila.  
-        Este sistema está diseñado para ayudarte con:
-      </p>
-      <ul>
-        <li>Información sobre carreras y planes de estudio</li>
-        <li>Horarios y servicios escolares</li>
-        <li>Asistencia con procesos administrativos</li>
-        <li>Dudas sobre inscripción y becas</li>
-        <li>Guía para el uso de plataformas institucionales</li>
-      </ul>
-      <p>
-        Solo escribe tu duda en el chat y obtén una respuesta al instante.
-      </p>
-    </aside>
+            <div class="main-layout">
 
-    <!-- Contenido principal -->
-   <div class="chat-container">
-            <div class="chat-box" id="chat-box">
-                <div class="message bot">
-                    <p>Hola, soy el chatbot. ¿En qué puedo ayudarte, pedazo de genio?</p>
+                <!-- Sección izquierda: Información del asistente -->
+                <aside class="assistant-info">
+                    <img src="utc.jpg" alt="Logo Universidad Tecnológica de Coahuila" class="utc-logo">
+                    <h2>Asistente Virtual UTC</h2>
+                    <p>
+                        Bienvenido al asistente virtual de la Universidad Tecnológica de Coahuila.
+                        Este sistema está diseñado para ayudarte con:
+                    </p>
+                    <ul>
+                        <li>Información sobre carreras y planes de estudio</li>
+                        <li>Horarios y servicios escolares</li>
+                        <li>Asistencia con procesos administrativos</li>
+                        <li>Dudas sobre inscripción y becas</li>
+                        <li>Guía para el uso de plataformas institucionales</li>
+                    </ul>
+                    <p>Solo escribe tu duda en el chat y obtén una respuesta al instante.</p>
+                </aside>
+
+                <!-- Contenido principal: Chat -->
+                <div class="chat-container">
+                    <div class="chat-box" id="chat-box">
+                        <div class="message bot">
+                            <p>Hola, soy el chatbot. ¿En qué puedo ayudarte, pedazo de genio?</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-input">
+                        <input type="text" id="mensaje" placeholder="Escribe tu mensaje aquí..." />
+                        <button class="send-btn" onclick="enviar()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="chat-input">
-                <input type="text" id="mensaje" placeholder="Escribe tu mensaje aquí..." />
-                <button class="send-btn" onclick="enviar()">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
             </div>
         </div>
-    </div>
+    </div>
 
     <!-- Banner "Agregar a pantalla de inicio" -->
     <div id="install-banner" class="install-banner" style="display:none;">
-      <span>📲 Instala la app en tu dispositivo para usarla sin conexión</span>
-      <button id="install-btn" class="install-btn">Instalar</button>
-      <button id="install-dismiss" class="install-dismiss" aria-label="Cerrar">✕</button>
+        <span>📲 Instala la app en tu dispositivo para usarla sin conexión</span>
+        <button id="install-btn" class="install-btn">Instalar</button>
+        <button id="install-dismiss" class="install-dismiss" aria-label="Cerrar">✕</button>
     </div>
 
     <!-- Indicador de estado de red -->
     <div id="offline-banner" class="offline-banner" style="display:none;">
-      <i class="fas fa-wifi-slash"></i> Sin conexión — algunos mensajes pueden no enviarse
+        <i class="fas fa-wifi-slash"></i> Sin conexión — algunos mensajes pueden no enviarse
     </div>
 
     <script>
-        // ── Enviar mensaje ─────────────────────────────────────
+        // ── Enviar mensaje ──────────────────────────────────────────
         function enviar() {
             const input   = document.getElementById('mensaje');
             const texto   = input.value.trim();
@@ -125,7 +105,6 @@
             userMsg.innerHTML = `<p>${escapeHtml(texto)}</p>`;
             chatBox.appendChild(userMsg);
 
-            // Limpiar input y hacer scroll
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -136,7 +115,6 @@
             chatBox.appendChild(typing);
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Enviar a api.php
             fetch('api.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -168,7 +146,7 @@
             return div.innerHTML;
         }
 
-        // ── Enter para enviar ──────────────────────────────────
+        // ── Enter para enviar ───────────────────────────────────────
         document.getElementById('mensaje').addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -176,21 +154,17 @@
             }
         });
 
-        // ── Estado de red (online/offline) ─────────────────────
+        // ── Estado de red online/offline ────────────────────────────
         const offlineBanner = document.getElementById('offline-banner');
 
         function updateOnlineStatus() {
-            if (!navigator.onLine) {
-                offlineBanner.style.display = 'flex';
-            } else {
-                offlineBanner.style.display = 'none';
-            }
+            offlineBanner.style.display = navigator.onLine ? 'none' : 'flex';
         }
         window.addEventListener('online',  updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
         updateOnlineStatus();
 
-        // ── Registro del Service Worker ────────────────────────
+        // ── Registro del Service Worker ─────────────────────────────
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js', { scope: '/' })
@@ -199,7 +173,7 @@
             });
         }
 
-        // ── Prompt de instalación (Add to Home Screen) ─────────
+        // ── Prompt de instalación PWA ───────────────────────────────
         let deferredPrompt;
         const installBanner  = document.getElementById('install-banner');
         const installBtn     = document.getElementById('install-btn');
@@ -230,6 +204,5 @@
             deferredPrompt = null;
         });
     </script>
-
 </body>
 </html>

@@ -123,7 +123,7 @@ El ID del calendario se obtiene en: **Google Calendar → Configuración del cal
 ### 5. Iniciar el servidor PHP local
 
 ```bash
-php -S localhost:9000 -t .
+php -S localhost:9000 -t public
 ```
 
 El chatbot estará disponible en: `http://localhost:9000`
@@ -231,21 +231,32 @@ if (empty($userInput)) {
 
 ## Estructura del proyecto
 
+El proyecto sigue una arquitectura **MVC** con separación clara entre capas:
+
 ```
 dialogflow-utc/
-├── index.php                  # Frontend del chatbot (PWA)
-├── api.php                    # Backend: Dialogflow + Google Calendar (webhook)
-├── calendar.php               # Integración con Google Calendar API
-├── load_env.php               # Cargador automático de variables de entorno
-├── styles.css                 # Estilos de la interfaz
-├── manifest.json              # Configuración PWA
-├── sw.js                      # Service Worker (caché offline)
+├── public/                    ← Document root (php -S localhost:9000 -t public)
+│   ├── index.php              # Vista: carga app/Views/chat.php
+│   ├── api.php                # Entry point: webhook Dialogflow / API frontend
+│   ├── styles.css             # Estilos de la interfaz
+│   ├── manifest.json          # Configuración PWA
+│   ├── sw.js                  # Service Worker (caché offline)
+│   ├── utc.jpg                # Logo de la universidad
+│   └── icons/                 # Íconos PWA (192px, 512px, etc.)
+├── app/
+│   ├── Controllers/
+│   │   └── ChatController.php # Controlador: maneja webhook y peticiones frontend
+│   ├── Services/
+│   │   └── CalendarService.php # Servicio: integra Google Calendar API
+│   └── Views/
+│       └── chat.php           # Vista: HTML del chatbot
+├── config/
+│   └── load_env.php           # Cargador de variables de entorno (.env)
+├── vendor/                    # Dependencias instaladas por Composer
 ├── composer.json              # Declaración de dependencias PHP
 ├── .env                       # [NO incluido] Variables de entorno locales
 ├── .env.example               # Plantilla de variables de entorno
 ├── .gitignore                 # Exclusiones del repositorio
-├── vendor/                    # Dependencias instaladas por Composer
-├── icons/                     # Íconos PWA
 ├── credenciales.json          # [NO incluido] Service Account Dialogflow
 └── calendar-credentials.json  # [NO incluido] Service Account Google Calendar
 ```
