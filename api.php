@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/load_env.php';
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/calendar.php';
 
@@ -58,9 +59,10 @@ if (empty($userInput)) {
 }
 
 // Cargar credenciales de Dialogflow
-putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/credenciales.json');
+$credencialesPath = getenv('DIALOGFLOW_CREDENTIALS') ?: __DIR__ . '/credenciales.json';
+putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $credencialesPath);
 
-$projectId = 'utconnect-lniw';
+$projectId = getenv('DIALOGFLOW_PROJECT_ID') ?: 'utconnect-lniw';
 
 try {
     session_start();
