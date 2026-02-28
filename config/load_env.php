@@ -1,11 +1,19 @@
 <?php
+
 /**
- * Cargador de variables de entorno desde el archivo .env
- * Lee cada línea del .env y las registra con putenv() / $_ENV
- * Solo procesa líneas que no sean comentarios ni estén vacías.
+ * Cargador de variables de entorno desde .env
+ * Define PROJECT_ROOT como constante global apuntando a la raíz del proyecto.
+ * Las variables del sistema operativo tienen prioridad sobre el archivo .env
  */
-function cargarEnv(string $archivo = __DIR__ . '/.env'): void
+
+define('PROJECT_ROOT', dirname(__DIR__));
+
+function cargarEnv(string $archivo = ''): void
 {
+    if (empty($archivo)) {
+        $archivo = PROJECT_ROOT . '/.env';
+    }
+
     if (!file_exists($archivo)) {
         return;
     }
@@ -18,16 +26,16 @@ function cargarEnv(string $archivo = __DIR__ . '/.env'): void
             continue;
         }
 
-        // Separar clave=valor
+        // Ignorar líneas sin '='
         if (!str_contains($linea, '=')) {
             continue;
         }
 
         [$clave, $valor] = explode('=', $linea, 2);
-        $clave  = trim($clave);
-        $valor  = trim($valor);
+        $clave = trim($clave);
+        $valor = trim($valor);
 
-        // Solo definir si la variable de entorno no está ya seteada (el SO tiene prioridad)
+        // El SO tiene prioridad: solo definir si no existe
         if (getenv($clave) === false) {
             putenv("{$clave}={$valor}");
             $_ENV[$clave] = $valor;
