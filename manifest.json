@@ -1,5 +1,5 @@
 {
-  "name": "Asistente Virtual U.T. de Coahuila",
+  "name": "Asistente Virtual UTC",
   "short_name": "UTC Chatbot",
   "description": "Chatbot del asistente virtual de la Universidad Tecnológica de Coahuila, impulsado por Dialogflow.",
   "start_url": "/index.php",

@@ -64,7 +64,7 @@
     <!-- Sección izquierda: Información del asistente -->
     <aside class="assistant-info">
       <img src="utc.jpg" alt="Logo Universidad Tecnológica de Coahuila" class="utc-logo">
-      <h2>Asistente Virtual U.T. de Coahuila</h2>
+      <h2>Asistente Virtual UTC</h2>
       <p>
         Bienvenido al asistente virtual de la Universidad Tecnológica de Coahuila.  
         Este sistema está diseñado para ayudarte con:

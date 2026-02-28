@@ -1,5 +1,6 @@
 # Credenciales sensibles - NUNCA subir
 credenciales.json
+calendar-credentials.json
 
 # Dependencias de Composer (se reinstalan con composer install)
 vendor/
