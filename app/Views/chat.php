@@ -36,12 +36,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="content">
-        <div class="content">
-            <div class="main-layout">
+    <!-- Header visible solo en móvil -->
+    <header class="mobile-header">
+        <img src="utc.jpg" alt="Logo UTC" class="mobile-logo">
+        <span class="mobile-title">Asistente Virtual UTC</span>
+    </header>
 
-                <!-- Sección izquierda: Información del asistente -->
-                <aside class="assistant-info">
+    <div class="content">
+        <div class="main-layout">
+
+            <!-- Sección izquierda: Información del asistente -->
+            <aside class="assistant-info">
                     <img src="utc.jpg" alt="Logo Universidad Tecnológica de Coahuila" class="utc-logo">
                     <h2>Asistente Virtual UTC</h2>
                     <p>
@@ -56,10 +61,10 @@
                         <li>Guía para el uso de plataformas institucionales</li>
                     </ul>
                     <p>Solo escribe tu duda en el chat y obtén una respuesta al instante.</p>
-                </aside>
+            </aside>
 
-                <!-- Contenido principal: Chat -->
-                <div class="chat-container">
+            <!-- Contenido principal: Chat -->
+            <div class="chat-container">
                     <div class="chat-box" id="chat-box">
                         <div class="message bot">
                             <p>Hola, soy el chatbot. ¿En qué puedo ayudarte, pedazo de genio?</p>
@@ -72,9 +77,8 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
-                </div>
-
             </div>
+
         </div>
     </div>
 
