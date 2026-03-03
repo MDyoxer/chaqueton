@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"ChatControllerTest::test_mensaje_vacio_retorna_error":0.008,"ChatControllerTest::test_maxEventos_segun_intent":0,"ChatControllerTest::test_deteccion_modo_webhook_vs_frontend":0,"ChatControllerTest::test_intents_de_calendario_son_reconocidos":0.002}}

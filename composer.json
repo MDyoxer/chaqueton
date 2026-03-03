@@ -2,5 +2,8 @@
     "require": {
         "google/cloud-dialogflow": "^0.29",
         "google/apiclient": "^2.19"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10"
     }
 }
