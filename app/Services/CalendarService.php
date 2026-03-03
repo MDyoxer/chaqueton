@@ -4,14 +4,17 @@ require_once PROJECT_ROOT . '/vendor/autoload.php';
 
 /**
  * Servicio de integración con Google Calendar API.
- * Encapsula toda la lógica de consulta al calendario escolar de la UTC.
+ * Implementa el patrón Singleton para garantizar una única instancia de conexión.
  */
 class CalendarService
 {
+    // 1. Atributo estático privado para almacenar la instancia única
+    private static ?CalendarService $instance = null;
     private Google\Service\Calendar $service;
     private string $calendarId;
 
-    public function __construct()
+    // 2. Constructor PRIVADO: Evita que se use 'new' desde fuera de la clase
+    private function __construct()
     {
         $credencialesPath = PROJECT_ROOT . '/calendar-credentials.json';
 
@@ -23,11 +26,17 @@ class CalendarService
         $this->calendarId = getenv('CALENDAR_ID') ?: '';
     }
 
+    // 3. Método estático público para obtener o crear la instancia
+    public static function getInstance(): CalendarService
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
     /**
      * Obtiene los próximos eventos del calendario escolar.
-     *
-     * @param int $max Número máximo de eventos a retornar
-     * @return string Texto formateado con los eventos
      */
     public function obtenerProximosEventos(int $max = 5): string
     {
@@ -50,7 +59,7 @@ class CalendarService
                 return 'No hay eventos escolares próximos registrados en el calendario.';
             }
 
-            $texto = "📅 *Próximos eventos escolares:*\n\n";
+            $texto = "📅 Próximos eventos escolares:\n\n";
             foreach ($eventos as $evento) {
                 $texto .= $this->formatearEvento($evento);
             }
@@ -65,9 +74,6 @@ class CalendarService
 
     /**
      * Obtiene los eventos de un día específico.
-     *
-     * @param string $fecha Fecha en formato 'Y-m-d' (ej: '2026-03-15')
-     * @return string Texto formateado con los eventos del día
      */
     public function obtenerEventosPorFecha(string $fecha): string
     {
@@ -93,7 +99,7 @@ class CalendarService
                 return "No hay eventos escolares registrados para el {$fechaFormateada}.";
             }
 
-            $texto = "📅 *Eventos del {$fechaFormateada}:*\n\n";
+            $texto = "📅 Eventos del {$fechaFormateada}:\n\n";
             foreach ($eventos as $evento) {
                 $texto .= $this->formatearEvento($evento);
             }
@@ -117,10 +123,10 @@ class CalendarService
         $texto  = '';
 
         if ($evento->start->dateTime) {
-            $texto .= "• *{$evento->getSummary()}*\n";
+            $texto .= "• {$evento->getSummary()}\n";
             $texto .= "  📆 {$fechaFormateada} a las {$fecha->format('H:i')}\n";
         } else {
-            $texto .= "• *{$evento->getSummary()}*\n";
+            $texto .= "• {$evento->getSummary()}\n";
             $texto .= "  📆 {$fechaFormateada}\n";
         }
 

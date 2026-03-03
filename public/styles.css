@@ -1,9 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
   background: linear-gradient(135deg, #e8f5f1, #ffffff);
   font-family: 'Poppins', sans-serif;
   color: #333;
+}
+
+/* ======== Header móvil (oculto en escritorio) ======== */
+.mobile-header {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: #04AA6D;
+  color: #fff;
+  padding: 10px 16px;
+  padding-top: calc(10px + env(safe-area-inset-top));
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.mobile-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
+.mobile-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
 
 /* ======== Icono del menú ======== */
@@ -208,75 +244,90 @@ div.content {
   background: #999;
 }
 
-/* ======== Versión móvil ======== */
-@media screen and (max-width: 700px) {
-  .chat-container {
-    height: calc(100vh - 80px); /* deja espacio para la barra inferior */
-    margin: 0;
-    border-radius: 0;
-  }
-
-  .chat-input input {
-    font-size: 16px;
-  }
-
-  .send-btn {
-    width: 45px;
-    height: 45px;
-  }
-}
-
-
 /* ======== Responsivo: versión móvil ======== */
 @media screen and (max-width: 700px) {
-  /* Barra inferior */
-  .sidebar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    top: auto;
-    width: 100%;
-    height: 60px;
+
+  /* Mostrar header móvil */
+  .mobile-header {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-    transition: none;
+  }
+
+  /* Quitar padding del content */
+  div.content {
+    margin-left: 0 !important;
     padding: 0;
   }
 
-  .sidebar a {
+  /* Layout en columna sin gap */
+  .main-layout {
     flex-direction: column;
-    justify-content: center;
-    padding: 8px 0;
-    color: #333;
+    padding: 0;
+    gap: 0;
+  }
+
+  /* Ocultar panel lateral de info */
+  .assistant-info {
+    display: none;
+  }
+
+  /* Chat ocupa toda la pantalla restante */
+  .chat-container {
+    height: calc(100dvh - 56px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    margin: 0;
+    border-radius: 0;
+    flex: none;
+    box-shadow: none;
+  }
+
+  /* Área de mensajes ocupa todo el espacio disponible */
+  .chat-box {
     flex: 1;
+    min-height: 0;
   }
 
-  .sidebar a span {
-    font-size: 12px;
+  /* Input más cómodo táctilmente */
+  .chat-input {
+    padding: 10px 12px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    gap: 8px;
   }
 
-  .sidebar a i {
-    font-size: 20px;
+  .chat-input input {
+    font-size: 16px; /* evita zoom en iOS */
+    padding: 12px 14px;
   }
 
-  /* Quita icono lateral y zona hover en móvil */
+  /* Botón táctil mínimo 44×44 px (WCAG) */
+  .send-btn {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  /* Mensajes más anchos en pantalla pequeña */
+  .message {
+    max-width: 90%;
+  }
+
+  /* Ocultar sidebar lateral y zona hover */
+  .sidebar,
   .sidebar-icon,
   .sidebar-trigger {
     display: none;
   }
-
-  div.content {
-    margin-left: 0;
-    padding-bottom: 70px; /* deja espacio para la barra inferior */
-  }
 }
 
 /* ======== Responsivo extremo ======== */
-@media screen and (max-width: 400px) {
-  .sidebar a span {
-    display: none; /* solo iconos si el espacio es mínimo */
+@media screen and (max-width: 360px) {
+  .mobile-title {
+    font-size: 13px;
+  }
+
+  .chat-input input {
+    padding: 10px 10px;
   }
 }
 
@@ -287,6 +338,7 @@ div.content {
   align-items: stretch;
   justify-content: center;
   padding: 20px;
+  min-height: calc(100vh - 40px);
 }
 
 /* ======== Sección de información ======== */
@@ -470,28 +522,7 @@ body {
   padding-right:  env(safe-area-inset-right);
 }
 
-/* Chat input: margen inferior para Home Indicator */
-@media screen and (max-width: 700px) {
-  .chat-input {
-    padding-bottom: calc(10px + env(safe-area-inset-bottom));
-  }
-
-  /* Botones táctiles mínimo 44×44 px (WCAG) */
-  .send-btn {
-    min-width: 44px;
-    min-height: 44px;
-  }
-
-  /* Evitar zoom al hacer foco en el input (iOS) */
-  .chat-input input {
-    font-size: 16px;
-  }
-
-  /* Espacio extra cuando el banner de instalación esté visible */
-  .chat-container {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-}
+/* Safe area ya consolidada en las media queries de móvil arriba */
 
 /* ── Modo standalone: ocultar scroll del body ── */
 @media all and (display-mode: standalone) {
