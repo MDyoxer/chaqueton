@@ -273,3 +273,34 @@ dialogflow-utc/
 | Composer | Gestión de dependencias |
 | ngrok | Túnel HTTPS para desarrollo local |
 | PWA (Service Worker + Manifest) | App instalable sin tienda de aplicaciones |
+| PHPUnit 10 | Framework de pruebas unitarias |
+
+---
+
+## Pruebas unitarias
+
+Las pruebas validan la lógica de negocio central del `ChatController` de forma aislada, sin realizar conexiones reales a Dialogflow ni a Google Calendar.
+
+### Ejecutar las pruebas
+
+```bash
+php vendor/bin/phpunit --testdox
+```
+
+### Pruebas implementadas
+
+| # | Prueba | Lógica validada |
+|---|---|---|
+| 1 | `test_mensaje_vacio_retorna_error` | `handleFrontend()` devuelve `{ "error": "No se envió ningún mensaje." }` ante entrada vacía, espacios o clave ausente |
+| 2 | `test_maxEventos_segun_intent` | `handleWebhook()` asigna `$maxEventos = 10` para `calendario-escolar` y `horario-escolar`, y `5` para el resto |
+| 3 | `test_deteccion_modo_webhook_vs_frontend` | `handle()` detecta modo **webhook** cuando existe `queryResult` y modo **frontend** en caso contrario |
+| 4 | `test_intents_de_calendario_son_reconocidos` | Todos los intents de `INTENTS_CALENDARIO` activan la consulta al calendario; los intents ajenos no la activan |
+
+### Resultado
+
+![Tests PHPUnit pasando exitosamente](docs/tests-screenshot.png)
+
+> **Archivos de prueba:**
+> - `phpunit.xml` — configuración del test runner
+> - `tests/bootstrap.php` — variables de entorno de prueba
+> - `tests/ChatControllerTest.php` — 4 tests, 25 assertions
