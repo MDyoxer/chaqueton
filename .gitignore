@@ -11,6 +11,9 @@ adminer-5.4.1-en.php
 # Dependencias de Composer (se reinstalan con composer install)
 vendor/
 
+# Cache de PHPUnit
+.phpunit.result.cache
+
 # Archivos de sistema
 .DS_Store
 Thumbs.db
